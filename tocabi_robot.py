@@ -23,7 +23,7 @@ from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 def design_scene():
     """Designs the scene by spawning ground plane, light, objects and meshes from usd files."""
     # Ground-plane
-    cfg_ground = sim_utils.GroundPlanCfg()
+    cfg_ground = sim_utils.GroundPlaneCfg()
     cfg_ground.func("/World/defaultGroundPlane", cfg_ground)
 
     # spawn distant light
@@ -36,7 +36,12 @@ def design_scene():
     # create a new xform prim for all objects to be spawned under
     prim_utils.create_prim("/World/Objects", "Xform")
 
-    cfg_
+    cfg_tocabi = sim_utils.UsdFileCfg(
+        usd_path="IsaacLab/source/extensions/omni.isaac.lab_assets/data/Robots/Tocabi/Tocabi.usd",
+        variants={"type": "humanoid", "size": "large"},
+        scale=(1.0, 1.0, 1.0),
+        visual_material_path=""
+    )
 
 def main():
     """Main function."""
@@ -45,7 +50,7 @@ def main():
     sim_cfg = sim_utils.SimulationCfg(dt=0.01)
     sim = sim_utils.SimulationContext(sim_cfg)
     # Set main camera
-    sim.set_camera_view([2.5, 2.5, 2.5], [0.0, 0.0, 0.0])
+    sim.set_camera_view([2.5, 0.0, 2.5], [-0.5, 0.0, 0.5])
 
     # Design scene by adding assets to it
     design_scene()
